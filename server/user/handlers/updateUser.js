@@ -7,6 +7,7 @@ export const updateUser = async (prisma, req, res) => {
       email: req.body.email,
       password: req.body.password,
       role: req.body.role,
+      updatedAt: new Date(),
     },
   });
   res.json(user);
