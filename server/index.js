@@ -6,13 +6,7 @@ import cors from "cors";
 const app = express();
 const port = process.env.NEXT_PUBLIC_DOMAIN_API_PORT || 3000;
 
-console.log(port);
-
 app.use(cors());
-
-app.get("/api/hello", (req, res) => {
-  res.send({ status: "Hello From Express" });
-});
 
 app.use(express.json());
 

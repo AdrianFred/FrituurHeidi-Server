@@ -19,7 +19,7 @@ export const resetPassword = async (prisma, req, res) => {
 
     if (user) {
       const token = await createToken(user.email);
-      const link = process.env.NEXT_PUBLIC_DOMAIN_API + token;
+      const link = process.env.NEXT_PUBLIC_DOMAIN + token;
 
       const mailOptions = {
         from: process.env.EMAIL,

@@ -1,5 +1,6 @@
 import { hashPassword } from "../../utilities/password.js";
 import { createToken } from "../../utilities/jsonwebtoken.js";
+import { transporter } from "../../../config/nodermailer.js";
 
 export const createUser = async (prisma, req, res) => {
   const { firstName, email, lastName, number, password } = req.body;
@@ -55,6 +56,23 @@ export const createUser = async (prisma, req, res) => {
         password: hashed,
       },
     });
+
+    // Send email
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "Welcome to the app",
+      text: "Welcome to the app",
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
     // res.json(user, token);
     const token = await createToken(email);
     res.status(201).json({ user, token });
