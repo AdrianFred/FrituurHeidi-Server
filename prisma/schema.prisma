@@ -25,6 +25,7 @@ model User {
   role_user       role_user[]
   role            Role           @default(USER)
   latestIp        String?
+  verfied         Boolean        @default(false)
 }
 
 enum Role {

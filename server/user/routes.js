@@ -9,6 +9,7 @@ import { updateUser } from "./handlers/updateUser.js";
 import { validateUser } from "./handlers/validateUser.js";
 import { resetPassword } from "./handlers/resetPassword.js";
 import { updatePassword } from "./handlers/updatePassword.js";
+import { getUsers } from "./handlers/getUsers.js";
 
 export const userRouter = express.Router();
 
@@ -35,8 +36,7 @@ userRouter.post("/users", async (req, res) => {
 });
 
 userRouter.get("/users", checkAuth, async (req, res) => {
-  const users = await prisma.user.findMany();
-  res.json(users);
+  getUsers(prisma, req, res);
 });
 
 userRouter.get("/users/:id", checkAuth, async (req, res) => {
